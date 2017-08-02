@@ -18,7 +18,10 @@ def parse_arguments():
 
 
 # ------------------------------------------------------------------------------
-if __name__ == '__main__':
+def main():
     args = parse_arguments()
     files = [infile.name for infile in args.input]
     dashboard.plot_csv(files)
+
+
+# ------------------------------------------------------------------------------
