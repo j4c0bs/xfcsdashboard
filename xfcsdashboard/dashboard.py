@@ -32,9 +32,10 @@ def make_data_traces(df, data_keys):
         trace_data = go.Scatter(
             x=df.index, y=df[param], mode='lines', legendgroup=param,
             line=dict(width=1.5),
-            name=param, visible='legendonly')
-        data.append(trace_data)
+            name=param
+        )
 
+        data.append(trace_data)
         data_ix.append(1)
         mean_ix.append(0)
 
@@ -42,9 +43,10 @@ def make_data_traces(df, data_keys):
             trace_mean = go.Scatter(
                 x=df.index, y=df[param_mean], mode='lines', legendgroup=param,
                 line=dict(color='red', width=1),
-                name=param_mean, visible='legendonly')
-            data.append(trace_mean)
+                name=param_mean
+            )
 
+            data.append(trace_mean)
             data_ix.append(0)
             mean_ix.append(1)
 
@@ -92,7 +94,7 @@ def generate_plot(df, data_keys, fn):
     data, data_ix, mean_ix = make_data_traces(df, data_keys)
 
     layout = dict(
-        font=dict(family='monospace', size=16, color='#000000'),
+        font=dict(family='monospace', size=15, color='#000000'),
         title=fn,
         xaxis=dict(showgrid=True, showline=True, gridcolor='#a0a080'))
 
@@ -136,7 +138,7 @@ def plot_csv(files):
         df = csv_data.load(filepath)
         make_plot(df, filepath)
     print()
-    
+
 
 def plot_data(fcs_objs, meta_keys):
     all_data = {key: [fcs.param(key) for fcs in fcs_objs] for key in meta_keys}
