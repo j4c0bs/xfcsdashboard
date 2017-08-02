@@ -13,9 +13,17 @@ To hide all except one parameter, double click on its name.
 Installation
 ------------
 
+Using pip:
+
 ::
 
+    pip install xfcsdashboard
+
+Without pip:
+
+::
     python setup.py install
+
 
 Command Line Usage
 ------------------
@@ -38,6 +46,7 @@ Requirements
 - Python 3.5 or greater
 - pandas
 - plotly
+
 
 License
 -------
