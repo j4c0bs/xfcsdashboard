@@ -1,3 +1,7 @@
+"""
+Functions related to reading csv files in DataFrame objects.
+Tests for wide formatted data and converts to long.
+"""
 
 import csv
 import pandas as pd

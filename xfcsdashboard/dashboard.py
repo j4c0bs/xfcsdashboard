@@ -1,4 +1,11 @@
-# import csv
+"""
+Main script for xfcsdashboard.
+
+plot_data -> entry point for xfcs metadata
+plot_csv -> cli entry point
+
+"""
+
 import os
 
 import pandas as pd
@@ -8,6 +15,13 @@ from plotly.offline import plot
 from xfcsdashboard import csv_data
 # ------------------------------------------------------------------------------
 def add_range_slider():
+    """Creates adjustable time series slider.
+
+    Returns:
+        xslider: config dict for plotly layout
+
+    """
+
     xslider = dict(
         rangeselector=dict(
             buttons=[
@@ -26,6 +40,19 @@ def add_range_slider():
 
 
 def make_data_traces(df, data_keys):
+    """Creates plotly Scatter traces of selected numeric keywords (and optional mean values).
+    Index of data or mean data is tracked for use in opacity controls.
+
+    Args:
+        df: dataframe of numeric metadata
+        data_keys: iterable of (data key, data mean key | '')
+
+    Returns:
+        data: list of plotly Scatter instances
+        data_ix: iterable of 0|1 with values of 1 relative to data key in data
+        mean_ix: iterable of 0|1 with values of 1 relative to data mean key in data
+    """
+
     data, data_ix, mean_ix = [], [], []
 
     for param, param_mean in data_keys:
@@ -54,6 +81,15 @@ def make_data_traces(df, data_keys):
 
 
 def opacity_button(data_ix, mean_ix):
+    """Configures opacity drop down menu.
+
+    Args:
+        data_ix: iterable with data index at 1 and mean index at 0.
+        mean_ix: iterable with data index at 0 and mean index at 1.
+
+    Returns:
+        opacity_menu: config dict for layout
+    """
 
     reset_opac = [1] * len(data_ix)
     data_reduce = [a+b for a,b in zip([.5*x for x in data_ix], mean_ix)]
@@ -91,6 +127,17 @@ def opacity_button(data_ix, mean_ix):
 
 
 def generate_plot(df, data_keys, fn):
+    """Collects all layout, data and instantiates plot.
+
+    Args:
+        df: dataframe of numeric metadata
+        data_keys: iterable of (data key, data mean key | '')
+        fn: file name for outgoing html plot
+
+    Returns:
+        file name of html plot
+    """
+
     data, data_ix, mean_ix = make_data_traces(df, data_keys)
 
     layout = dict(
@@ -107,6 +154,15 @@ def generate_plot(df, data_keys, fn):
 
 
 def organize_columns(columns):
+    """Locates data column keys and their respective mean data keys.
+
+    Args:
+        columns: iterable of dataframe column names
+
+    Returns:
+        keywords: iterable of tuples containing (data key, data mean key | '')
+    """
+
     located = []
     keywords = []
     for kw in sorted(columns):
@@ -143,6 +199,9 @@ def plot_csv(files):
 def plot_data(fcs_objs, meta_keys):
     all_data = {key: [fcs.param(key) for fcs in fcs_objs] for key in meta_keys}
     df = pd.DataFrame(all_data)
+    if df.columns.contains('$DATE'):
+        df.index = pd.to_datetime(df['$DATE'])
+        
     filepath = os.path.basename(os.getcwd())
     make_plot(df, filepath)
 
