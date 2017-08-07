@@ -5,9 +5,13 @@ Create interactive plots for FCS file metadata (3.0, 3.1).
 
 Metadata plots are generated as a self contained html file.
 Multiple display options are provided to hide or show parameters, calculated mean values, and customized time range.
-By default, all numeric parameters located will be displayed. Parameters displayed can be located on the right side of the plot.
+
+Parameters displayed can be located on the right side of the plot.
 To hide (or display) a parameter, click on its name.
 To hide all except one parameter, double click on its name.
+
+
+  .. image:: https://github.com/j4c0bs/xfcs/blob/master/docs/dashboard_preview.png
 
 
 Installation
