@@ -1,7 +1,7 @@
 xfcs dashboard
 ==============
 
-Create interactive plots for FCS file metadata (3.0, 3.1).
+Add-on module for `xfcs <https://github.com/j4c0bs/xfcs>`_ to create interactive plots for FCS file metadata (3.0, 3.1).
 
 Metadata plots are generated as a self contained html file.
 Multiple display options are provided to hide or show parameters, calculated mean values, and customized time range.
@@ -39,7 +39,7 @@ For stand alone usage:
     xfcsdashboard -i <metadata.csv>
 
 
-Used in combination with metadata extraction in xfcs (requires xfcs installed):
+Used in combination with metadata extraction in `xfcs <https://github.com/j4c0bs/xfcs>`_ (requires xfcs installed):
 ::
 
     xfcsmeta [--options] --dashboard
